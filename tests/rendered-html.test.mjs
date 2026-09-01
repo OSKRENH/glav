@@ -28,8 +28,9 @@ test("renders the Etalon home page", async () => {
   );
   const html = await response.text();
   assert.match(html, /Группа «Эталон»/);
-  assert.match(html, /Города,/);
-  assert.match(html, /Подобрать квартиру/);
+  assert.match(html, /ЖИТЬ/);
+  assert.match(html, /Найти свой адрес/);
+  assert.match(html, /РАССТОЯНИЕ/);
 });
 
 test("renders the Shagal project page", async () => {
@@ -45,5 +46,6 @@ test("renders the Shagal project page", async () => {
   const html = await response.text();
   assert.match(html, /Шагал/);
   assert.match(html, /15 минут/);
-  assert.match(html, /Ход строительства/);
+  assert.match(html, /Строительство/);
+  assert.match(html, /Найти своё/);
 });
