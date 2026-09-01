@@ -33,7 +33,7 @@ const projects = [
     price: 17.4,
     priceLabel: "от 17,4 млн ₽",
     delivery: "Сдано и IV кв. 2026",
-    image: "/images/shagal.webp",
+    image: "/images/project-shagal-hero.webp",
     rooms: ["studio", "1", "2", "3", "4"],
   },
   {
@@ -46,7 +46,7 @@ const projects = [
     price: 23.2,
     priceLabel: "от 23,2 млн ₽",
     delivery: "Сдан",
-    image: "/images/voxhall.webp",
+    image: "/images/project-voxhall-hero.webp",
     rooms: ["studio", "1", "2", "3"],
   },
   {
@@ -59,7 +59,7 @@ const projects = [
     price: 17,
     priceLabel: "от 17 млн ₽",
     delivery: "Сдано и 2027",
-    image: "/images/nagatino.webp",
+    image: "/images/project-nagatino-hero.webp",
     rooms: ["studio", "1", "2", "3", "4"],
   },
 ];
@@ -129,34 +129,27 @@ function HomeFinder() {
 }
 
 function ProjectNavigator() {
-  const [active, setActive] = useState(0);
   const [liked, setLiked] = useState<string[]>([]);
-  const project = projects[active];
-  const href = project.slug === "shagal" ? "/projects/shagal" : "#callback";
   const toggleLike = (slug: string) => setLiked((items) => items.includes(slug) ? items.filter((item) => item !== slug) : [...items, slug]);
   return (
-    <div className="project-navigator">
-      <div className="project-tabs" role="tablist" aria-label="Выбор проекта">
-        {projects.map((item, index) => (
-          <button key={item.slug} type="button" role="tab" aria-selected={active === index} className={active === index ? "is-active" : ""} onClick={() => setActive(index)}>
-            <span>{item.id}</span><b>{item.name}</b><small>{item.note}</small>
-          </button>
-        ))}
-      </div>
-      <div className="project-stage">
-        <div className="project-stage-image">
-          <Image key={project.image} src={project.image} alt={`Архитектура проекта ${project.name}`} fill sizes="(max-width: 800px) 100vw, 68vw" />
-          <div className="stage-coordinates">55.7008° N<br />37.6387° E</div>
-          <button className={`stage-like ${liked.includes(project.slug) ? "is-liked" : ""}`} type="button" onClick={() => toggleLike(project.slug)} aria-label="Добавить в избранное"><Heart fill={liked.includes(project.slug) ? "currentColor" : "none"} /></button>
-        </div>
-        <div className="project-stage-info">
-          <span className="stage-number">{project.id}/03</span>
-          <div><p>{project.line}</p><h3>{project.name}</h3></div>
-          <div className="stage-meta"><span><MapPin />{project.place}</span><span><Clock3 />{project.delivery}</span></div>
-          <div className="stage-price"><span>Квартиры</span><strong>{project.priceLabel}</strong></div>
-          <Link href={href} className="stage-open"><span>Открыть проект</span><MoveUpRight /></Link>
-        </div>
-      </div>
+    <div className="project-gallery" aria-label="Проекты Группы Эталон">
+      {projects.map((project, index) => {
+        const href = project.slug === "shagal" ? "/projects/shagal" : "#callback";
+        return (
+          <article className={`project-poster project-poster--${index + 1}`} key={project.slug}>
+            <Link href={href} className="project-poster-image">
+              <Image src={project.image} alt={`Архитектура проекта ${project.name}`} fill sizes="(max-width: 820px) 100vw, 34vw" />
+              <span>{project.id} / 03</span>
+            </Link>
+            <button className={`poster-like ${liked.includes(project.slug) ? "is-liked" : ""}`} type="button" onClick={() => toggleLike(project.slug)} aria-label={`${liked.includes(project.slug) ? "Убрать" : "Добавить"} ${project.name} ${liked.includes(project.slug) ? "из" : "в"} избранного`}><Heart fill={liked.includes(project.slug) ? "currentColor" : "none"} /></button>
+            <Link href={href} className="project-poster-copy">
+              <div><p>{project.note}</p><h3>{project.name}</h3></div>
+              <div className="poster-facts"><span><MapPin />{project.place}</span><span><Clock3 />{project.delivery}</span></div>
+              <div className="poster-bottom"><span>{project.line}</span><strong>{project.priceLabel}</strong><MoveUpRight /></div>
+            </Link>
+          </article>
+        );
+      })}
     </div>
   );
 }
@@ -184,7 +177,7 @@ export function HomeExperience() {
           <div className="atlas-thesis"><i /> <p>К реке, парку, работе,<br />людям и своим планам.</p></div>
         </div>
         <Link href="/projects/shagal" className="atlas-window">
-          <Image src="/images/shagal.webp" alt="Жилой квартал Шагал" fill priority sizes="(max-width: 800px) 92vw, 46vw" />
+          <Image src="/images/project-shagal-hero.webp" alt="Жилой квартал Шагал" fill priority sizes="(max-width: 800px) 92vw, 46vw" />
           <div className="window-label"><span>Сейчас в фокусе</span><strong>Шагал</strong><small>Квартал у Москвы-реки</small></div>
           <MoveUpRight />
         </Link>
@@ -268,7 +261,7 @@ export function ProjectExperience() {
       <section className="project-cover">
         <Header />
         <div className="cover-orange"><span>Проект / 01</span><h1>ША<br />ГАЛ</h1><p>Бизнес-квартал у реки.<br />Город внутри города.</p></div>
-        <div className="cover-image"><Image src="/images/shagal.webp" alt="Жилой квартал Шагал" fill priority sizes="(max-width: 800px) 100vw, 58vw" /><span>55.7008° N<br />37.6387° E</span></div>
+        <div className="cover-image"><Image src="/images/project-shagal-hero.webp" alt="Жилой квартал Шагал" fill priority sizes="(max-width: 800px) 100vw, 58vw" /><span>55.7008° N<br />37.6387° E</span></div>
         <div className="cover-data"><div><span>Метро</span><strong>Технопарк · 11 мин</strong></div><div><span>Готовность</span><strong>Сдано и IV кв. 2026</strong></div><div><span>Квартиры</span><strong>от 17,4 млн ₽</strong></div><a href="#flats">Выбрать <ArrowDownRight /></a></div>
       </section>
 
@@ -279,6 +272,14 @@ export function ProjectExperience() {
         <h2>УТРО — У РЕКИ.<br />ДЕНЬ — В ГОРОДЕ.<br /><em>ВЕЧЕР — ДОМА.</em></h2>
         <div className="idea-route"><span>Дом</span><i /><span>Парк</span><i /><span>Школа</span><i /><span>Набережная</span><b>15 минут</b></div>
         <div className="idea-numbers"><div><strong>109</strong><span>гектаров</span></div><div><strong>4,6</strong><span>км набережной</span></div><div><strong>6</strong><span>га парка</span></div></div>
+      </section>
+
+      <section className="project-visual-story" aria-label="Архитектура и среда проекта Шагал">
+        <div className="visual-story-head"><span>Шагал / В деталях</span><h2>Не обещание.<br />Конкретное место.</h2><p>Архитектура, набережная, дворы и лобби — реальные визуализации с официальной страницы проекта.</p></div>
+        <figure className="visual-frame visual-frame--architecture"><div><Image src="/images/shagal-architecture.webp" alt="Архитектура квартала Шагал" fill sizes="(max-width: 820px) 100vw, 64vw" /></div><figcaption><span>01</span><strong>Архитектура</strong><p>Разные масштабы домов складываются в цельный городской квартал.</p></figcaption></figure>
+        <figure className="visual-frame visual-frame--embankment"><div><Image src="/images/shagal-embankment.webp" alt="Набережная квартала Шагал" fill sizes="(max-width: 820px) 100vw, 36vw" /></div><figcaption><span>02</span><strong>Набережная</strong><p>4,6 километра маршрутов вдоль воды.</p></figcaption></figure>
+        <figure className="visual-frame visual-frame--lobby"><div><Image src="/images/shagal-lobby.webp" alt="Лобби квартала Шагал" fill sizes="(max-width: 820px) 100vw, 36vw" /></div><figcaption><span>03</span><strong>Urban-лобби</strong><p>Место для встреч, работы и короткой паузы.</p></figcaption></figure>
+        <figure className="visual-frame visual-frame--landscape"><div><Image src="/images/shagal-landscape.webp" alt="Благоустройство квартала Шагал" fill sizes="(max-width: 820px) 100vw, 64vw" /></div><figcaption><span>04</span><strong>Благоустройство</strong><p>Дворы, улицы и первый этаж работают как единая среда.</p></figcaption></figure>
       </section>
 
       <section className="apartment-index" id="flats">
@@ -296,7 +297,7 @@ export function ProjectExperience() {
 
       <section className="build-line" id="progress">
         <div className="build-copy"><span>04 / Строительство</span><h2>ВИДНО,<br />КАК РАСТЁТ.</h2><p>Камеры, документы и ежемесячные отчёты собраны в одном месте.</p><Button variant="outline">Открыть камеры <MoveUpRight /></Button></div>
-        <div className="build-progress"><strong>78<small>%</small></strong><div className="build-bar"><i /></div><div><span><Check />Корпус</span><span><Check />Фасад</span><span className="current"><Clock3 />Инженерия</span><span>Отделка</span></div><p>Обновлено в августе 2026</p></div>
+        <div className="build-media"><figure className="build-photo"><Image src="/images/shagal-construction.webp" alt="Строительство квартала Шагал в августе 2026 года" fill sizes="(max-width: 820px) 100vw, 38vw" /><figcaption>Фото со стройки · 18 августа 2026</figcaption></figure><div className="build-progress"><strong>78<small>%</small></strong><div className="build-bar"><i /></div><div><span><Check />Корпус</span><span><Check />Фасад</span><span className="current"><Clock3 />Инженерия</span><span>Отделка</span></div><p>Обновлено в августе 2026</p></div></div>
       </section>
 
       <section className="project-mortgage" id="buy"><div className="mortgage-title"><span>05 / Ипотека</span><h2>ПЛАТЁЖ<br />БЕЗ СЮРПРИЗОВ.</h2></div><MortgageCalculator /></section>

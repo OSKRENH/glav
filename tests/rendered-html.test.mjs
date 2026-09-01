@@ -31,6 +31,9 @@ test("renders the Etalon home page", async () => {
   assert.match(html, /ЖИТЬ/);
   assert.match(html, /Найти свой адрес/);
   assert.match(html, /РАССТОЯНИЕ/);
+  assert.match(html, /project-shagal-hero\.webp/);
+  assert.match(html, /project-voxhall-hero\.webp/);
+  assert.match(html, /project-nagatino-hero\.webp/);
 });
 
 test("renders the Shagal project page", async () => {
@@ -48,4 +51,8 @@ test("renders the Shagal project page", async () => {
   assert.match(html, /15 минут/);
   assert.match(html, /Строительство/);
   assert.match(html, /Найти своё/);
+  assert.match(html, /Не обещание/);
+  assert.match(html, /shagal-architecture\.webp/);
+  assert.match(html, /shagal-embankment\.webp/);
+  assert.match(html, /shagal-construction\.webp/);
 });
